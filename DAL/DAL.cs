@@ -34,17 +34,17 @@ namespace DAL
         }
         public Course EditCourse(int id,Course course)
         {
-            var temp = _context.Courses.ToList().Where(x => x.CourseId == id).FirstOrDefault();
-            if (temp != null)
+            var item = _context.Courses.ToList().Where(x => x.CourseId == id).FirstOrDefault();
+            if (item != null)
             {
-                foreach (Course item in _context.Courses.ToList())
-                {
+                
                     item.Description = course.Description;
                     item.Name = course.Name;
                     item.Module = course.Module;
-                }
+                    _context.Courses.Update(item);
+                _context.SaveChanges();
             }
-            _context.SaveChanges();
+            
             return course;
 
 
